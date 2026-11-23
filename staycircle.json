@@ -167,5 +167,18 @@
     "copied_google_link": 0,
     "joined_community": 0,
     "created_at": "2026-11-23T17:14:27.762Z"
+  },
+  {
+    "id": "245fdc58-ebc1-426f-89a0-6fb01b0da5ab",
+    "property": null,
+    "bed_id": null,
+    "rating": null,
+    "tags": "[]",
+    "raw_note": null,
+    "generated_review": null,
+    "scan_started": 1,
+    "copied_google_link": 0,
+    "joined_community": 0,
+    "created_at": "2026-11-23T17:44:16.133Z"
   }
 ]
