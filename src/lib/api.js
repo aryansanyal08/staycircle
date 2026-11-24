@@ -1,4 +1,4 @@
-const BASE = import.meta.env.DEV ? 'http://localhost:3001' : ''
+export const BASE = import.meta.env.DEV ? 'http://localhost:3001' : ''
 
 /**
  * Submit a guest check-in form.

@@ -12,11 +12,40 @@ router.get('/', (_req, res) => {
 
     const totalScans = metrics.totalScans || 0;
     const totalCheckins = metrics.totalCheckins || 0;
+    const reviewClicks = metrics.reviewClicks || 0;
+    const communityJoins = metrics.communityJoins || 0;
 
     const completionPct =
       totalScans > 0 ? ((totalCheckins / totalScans) * 100).toFixed(1) : '0.0';
+    const reviewPct =
+      totalCheckins > 0 ? ((reviewClicks / totalCheckins) * 100).toFixed(1) : '0.0';
+    const communityPct =
+      totalCheckins > 0 ? ((communityJoins / totalCheckins) * 100).toFixed(1) : '0.0';
 
-    return res.json({ ...metrics, completionPct });
+    // Normalize byBed rows for frontend
+    const normalizedByBed = (metrics.byBed || []).map((b) => ({
+      ...b,
+      bedId: b.bed_id || b.bedId || 'UNKNOWN',
+    }));
+
+    // Normalize recentCheckins rows for frontend
+    const normalizedRecentCheckins = (metrics.recentCheckins || []).map((r) => ({
+      ...r,
+      bedId: r.bed_id || r.bedId || '—',
+      reviewText: r.generated_review || r.raw_note || r.reviewText || '',
+      createdAt: r.created_at || r.createdAt,
+    }));
+
+    return res.json({
+      ...metrics,
+      byBed: normalizedByBed,
+      byTag: metrics.byTag || [],
+      tagBreakdown: metrics.byTag || [],
+      recentCheckins: normalizedRecentCheckins,
+      completionPct,
+      reviewPct,
+      communityPct,
+    });
   } catch (err) {
     console.error('[metrics] Error:', err);
     return res.status(500).json({ error: 'Internal server error' });
