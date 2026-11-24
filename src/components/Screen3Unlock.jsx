@@ -87,7 +87,8 @@ export default function Screen3Unlock({ checkinData }) {
     if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
     toastTimerRef.current = setTimeout(() => setToastVisible(false), 3000);
     if (checkinData?.id) trackEvent(checkinData.id, 'copied_google_link').catch(() => {});
-    const url = import.meta.env.VITE_GOOGLE_REVIEW_URL || 'https://maps.google.com';
+    const defaultGoogleUrl = 'https://www.google.com/travel/search?q=sai%20ganga%20cottage%20rishikesh%20contact%20number&g2lb=4965990%2C72471280%2C72573224%2C72686036%2C72803964%2C72882230%2C73064764%2C121529350%2C121608706%2C121921501%2C121951222%2C122078727%2C122097177%2C122134888&hl=en-IN&gl=in&cs=1&ssta=1&ts=CAEaRwopEicyJTB4MzkwOTE3YTUxOTMyMmJjZjoweGQxYjViMzU0OTViNTM4MDESGhIUCgcI6g8QCxgcEgcI6g8QCxgdGAEyAhAA&qs=CAEyFENnc0lnZkRVcmNucTdOclJBUkFCOAJCCQkBOLWVVLO10Q&ap=ugEHcmV2aWV3cw&ictx=111&ved=0CAAQ5JsGahcKEwjw6Zjbh6CYAxUAAAAAHQAAAAAQBA';
+    const url = import.meta.env.VITE_GOOGLE_REVIEW_URL || defaultGoogleUrl;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
