@@ -1,82 +1,142 @@
 import React from 'react';
 
 export default function Screen1Hook({ bed, property, onContinue }) {
+  const stayName = property || 'Sai Ganga Cottage';
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8 screen-enter">
-      <div className="w-full max-w-md space-y-5">
-
-        {/* ── Property Badge ── */}
-        <div className="flex justify-center">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold"
-            style={{ background: 'rgba(249,115,22,0.2)', color: '#fdba74', border: '1px solid rgba(249,115,22,0.35)' }}>
-            🌴 {property || 'Hostel'}
-          </span>
-        </div>
-
-        {/* ── Main Card ── */}
-        <div className="trop-card p-6">
-
-          {/* Headline */}
-          <div className="text-center mb-6">
-            <div className="text-4xl mb-3">🏝️</div>
-            <h1 className="text-2xl font-extrabold text-white leading-tight mb-2">
-              Join the Verified Hostel<br />
-              <span style={{ color: '#99f6e4' }}>Travelers & Trekking Circle</span>
-            </h1>
-            <p className="text-sm font-semibold" style={{ color: '#fb923c' }}>
-              🔥 450+ Guests Already Inside
-            </p>
+    <div className="min-h-screen flex flex-col justify-between py-6 px-4 screen-enter max-w-md mx-auto">
+      
+      {/* ── Top Bar (Like reference brand header) ── */}
+      <div className="flex items-center justify-between mb-5 px-1">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-base shadow-sm">
+            🏕️
           </div>
-
-          {/* Perks */}
-          <div className="space-y-3 mb-6">
-            {[
-              { icon: '🧭', title: 'Live Trek & Cafe Buddies', desc: 'Find travel companions in real-time' },
-              { icon: '🗺️', title: 'Secret Local Map',         desc: 'Hidden gems only hostel guests know' },
-              { icon: '🎉', title: 'Nightly Hostel Events',    desc: "Never miss tonight's gathering" },
-            ].map((p) => (
-              <div key={p.title} className="flex items-center gap-3 rounded-xl px-4 py-3"
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <span className="text-2xl">{p.icon}</span>
-                <div>
-                  <div className="text-white text-sm font-bold">{p.title}</div>
-                  <div className="text-xs" style={{ color: '#99f6e4' }}>{p.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Social Proof */}
-          <div className="flex items-center gap-3 mb-6 px-1">
-            <div className="flex -space-x-2">
-              {[['R','#f97316'],['P','#0d9488'],['A','#8b5cf6'],['K','#ec4899']].map(([l,c]) => (
-                <div key={l} className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold ring-2"
-                  style={{ background: c, ringColor: '#042f2e' }}>{l}</div>
-              ))}
+          <div>
+            <div className="text-sm font-bold text-white tracking-tight flex items-center gap-1.5">
+              <span>StayCircle</span>
+              <span className="text-[10px] bg-orange-500/20 text-orange-400 px-1.5 py-0.2 rounded font-semibold border border-orange-500/30">PASS</span>
             </div>
-            <p className="text-xs" style={{ color: 'rgba(255,255,255,0.65)' }}>
-              <span className="text-white font-semibold">Rahul, Priya</span> & 448 others joined this week
-            </p>
           </div>
-
-          {/* CTA */}
-          <button onClick={onContinue}
-            className="btn-coral w-full py-4 text-base flex items-center justify-center gap-2">
-            🌊 Continue to 10-Sec Check-In →
-          </button>
-
-          <p className="text-center text-xs mt-3" style={{ color: 'rgba(255,255,255,0.4)' }}>
-            Takes 10 seconds · No login required
-          </p>
         </div>
 
-        {/* Bed Info */}
-        {bed && bed !== 'WALK-IN' && (
-          <p className="text-center text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>
-            🛏️ Detected bed: <span className="font-semibold text-white">{bed}</span>
-          </p>
-        )}
+        {/* User / Bed Badge */}
+        <div className="flex items-center gap-2">
+          <div className="px-3 py-1 rounded-full bg-[#161b22] border border-white/10 flex items-center gap-2 text-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-slate-300 font-semibold">{bed && bed !== 'WALK-IN' ? `Bed ${bed}` : 'Hostel Guest'}</span>
+          </div>
+        </div>
       </div>
+
+      {/* ── Headline Block (Editorial Serif style from reference) ── */}
+      <div className="mb-5 px-1">
+        <p className="text-[11px] font-bold tracking-widest uppercase text-orange-500 mb-2">
+          Boutique Hostels &amp; Digital Nomad Circle
+        </p>
+        <h1 className="font-display text-2xl sm:text-[28px] font-bold text-white leading-[1.25] tracking-tight">
+          Find your crowd. Discover experiences that match your rhythm.
+        </h1>
+      </div>
+
+      {/* ── Hero Stay Card (Exact aesthetic of the Alpine Hub card in image) ── */}
+      <div className="cinema-card relative mb-5 group">
+        {/* Card Image Banner */}
+        <div className="relative h-48 w-full overflow-hidden bg-slate-900">
+          <img 
+            src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1000&auto=format&fit=crop" 
+            alt="Cottage and Mountains" 
+            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-80"
+          />
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#111418] via-[#111418]/40 to-transparent"></div>
+
+          {/* Top Rating Badge */}
+          <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white text-[11px] font-bold flex items-center gap-1 shadow-lg">
+            <span className="text-amber-400">★</span> 4.9 <span className="text-slate-400 font-normal">(450+ guests)</span>
+          </div>
+
+          {/* Floating Category Pill */}
+          <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-orange-600/90 text-white text-[10px] font-bold tracking-wide uppercase shadow">
+            Verified Stay
+          </div>
+
+          {/* Bottom Title inside Image */}
+          <div className="absolute bottom-3 left-4 right-4">
+            <h2 className="text-lg font-bold text-white tracking-tight drop-shadow-md">
+              {stayName} • Rishikesh
+            </h2>
+            <p className="text-xs text-slate-300 font-medium drop-shadow">
+              River View • Social Hostel • Fast Wi-Fi
+            </p>
+          </div>
+        </div>
+
+        {/* Card Body & Perks */}
+        <div className="p-4 space-y-3">
+          
+          {/* 3 Interactive Vibe Pills */}
+          <div className="flex flex-wrap gap-1.5">
+            <span className="cinema-pill px-2.5 py-1 text-[11px]">
+              ☕ Rooftop Cafe
+            </span>
+            <span className="cinema-pill px-2.5 py-1 text-[11px]">
+              🧘 Morning Yoga
+            </span>
+            <span className="cinema-pill px-2.5 py-1 text-[11px]">
+              🔥 Evening Bonfire
+            </span>
+            <span className="cinema-pill px-2.5 py-1 text-[11px]">
+              📶 120 Mbps Wi-Fi
+            </span>
+          </div>
+
+          {/* What's Your Vibe Mini Subcard */}
+          <div className="cinema-subcard p-3 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-lg">
+                👥
+              </div>
+              <div>
+                <div className="text-xs font-bold text-white">Hostel Travelers Circle</div>
+                <div className="text-[11px] text-slate-400">87 travelers checked in this week</div>
+              </div>
+            </div>
+            <span className="text-emerald-400 text-xs font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+              Live
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ── Community Events Preview Pill ── */}
+      <div className="cinema-subcard p-3 flex items-center justify-between mb-4 border border-white/[0.08]">
+        <div className="flex items-center gap-2.5">
+          <span className="text-base">📅</span>
+          <div>
+            <div className="text-xs font-bold text-white">Tonight: Acoustic Music &amp; Ganga Jam</div>
+            <div className="text-[10px] text-slate-400">Rooftop Lounge • 8:30 PM</div>
+          </div>
+        </div>
+        <span className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">Free Pass</span>
+      </div>
+
+      {/* ── Primary Action Button ── */}
+      <div className="space-y-2">
+        <button
+          onClick={onContinue}
+          className="btn-cinema-primary w-full py-4 px-6 text-sm flex items-center justify-center gap-2 group"
+        >
+          <span>Continue to 10-Sec Check-In</span>
+          <span className="text-base group-hover:translate-x-1 transition-transform">→</span>
+        </button>
+
+        <p className="text-center text-[11px] text-slate-500">
+          Takes 10 seconds • No signup • Unlocks WhatsApp Group &amp; Secret Map
+        </p>
+      </div>
+
     </div>
   );
 }
