@@ -20,12 +20,12 @@ export async function submitCheckin(payload) {
  * @param {string} id  - session / pass ID
  * @param {string} event - event name e.g. 'scan_started', 'review_copied'
  */
-export async function trackEvent(id, event) {
+export async function trackEvent(id, event, extra = {}) {
   try {
     await fetch(`${BASE}/api/track`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, event }),
+      body: JSON.stringify({ id, event, ...extra }),
     })
   } catch (e) {
     // non-blocking — analytics must never break the UX

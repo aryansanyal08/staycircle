@@ -32,8 +32,8 @@ router.post('/', async (req, res) => {
     // --- Generate review ---
     const generated_review = await generateReview(ratingNum, tags, note);
 
-    // --- Persist ---
-    const id = crypto.randomUUID();
+    // --- Persist (reuse session_id if available to link with scan event) ---
+    const id = req.body.session_id || req.body.id || crypto.randomUUID();
     const created_at = new Date().toISOString();
 
     insertCheckin({

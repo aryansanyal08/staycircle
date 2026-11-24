@@ -17,7 +17,7 @@ export default function App() {
 
   useEffect(() => {
     if (!isAdmin) {
-      trackEvent(sessionId, 'scan_started')
+      trackEvent(sessionId, 'scan_started', { bed_id: bed, property })
     }
   }, [])
 
