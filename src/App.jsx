@@ -3,6 +3,7 @@ import Screen1Hook from './components/Screen1Hook'
 import Screen2Checkin from './components/Screen2Checkin'
 import Screen3Unlock from './components/Screen3Unlock'
 import AdminDashboard from './components/AdminDashboard'
+import LandingPage from './components/LandingPage'
 import { trackEvent } from './lib/api'
 
 export default function App() {
@@ -10,18 +11,32 @@ export default function App() {
   const bed = params.get('bed') || 'WALK-IN'
   const property = params.get('property') || 'Hostel'
   const isAdmin = window.location.pathname === '/admin'
+  const hasQrParams = params.get('bed') !== null || params.get('property') !== null
 
+  // Show landing page at root with no QR params
+  const [showLanding, setShowLanding] = useState(!isAdmin && !hasQrParams)
   const [screen, setScreen] = useState(1)
   const [checkinData, setCheckinData] = useState(null)
   const [sessionId] = useState(() => crypto.randomUUID())
 
   useEffect(() => {
-    if (!isAdmin) {
+    if (!isAdmin && !showLanding) {
       trackEvent(sessionId, 'scan_started', { bed_id: bed, property })
     }
-  }, [])
+  }, [showLanding])
 
   if (isAdmin) return <AdminDashboard />
+
+  if (showLanding) {
+    return (
+      <LandingPage
+        onEnterFlow={() => {
+          setShowLanding(false)
+          setScreen(1)
+        }}
+      />
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex items-start justify-center px-4 py-6">
@@ -29,7 +44,7 @@ export default function App() {
         {screen === 1 && (
           <Screen1Hook
             bed={bed}
-            property={property} 
+            property={property}
             onContinue={() => setScreen(2)}
           />
         )}
